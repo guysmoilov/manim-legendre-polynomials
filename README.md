@@ -2,6 +2,8 @@
 
 A 3Blue1Brown-style educational video explaining Legendre polynomials through the lens of orthogonality and Gram-Schmidt orthogonalization.
 
+Made using Claude Code + https://github.com/adithya-s-k/manim_skill
+
 ## About
 
 This video demonstrates:
@@ -75,3 +77,4 @@ uv run manim render -ql legendre.py S03_GramSchmidt
 
 Created with [Manim Community Edition](https://www.manim.community/)
 Video style inspired by [3Blue1Brown](https://www.3blue1brown.com/)
+Skill by https://github.com/adithya-s-k/manim_skill
