@@ -81,7 +81,7 @@ class S02_FunctionsAsVectors(Scene):
 
     def construct(self):
         # ── Part A: The analogy ──
-        header = Text("Functions live in an infinite-dimensional vector space", font_size=28, color=BLUE_A)
+        header = Text("Functions live in an infinite-dimensional vector space", font_size=24, color=BLUE_A)
         header.to_edge(UP, buff=0.5)
         self.play(FadeIn(header, shift=DOWN * 0.2))
         self.wait(1)
@@ -91,16 +91,16 @@ class S02_FunctionsAsVectors(Scene):
         cont_title = Text("Functions on [-1, 1]", font_size=24, color=YELLOW).shift(RIGHT * 3 + UP * 1.5)
 
         disc_items = VGroup(
-            Text("n components: (v₁, v₂, ..., vₙ)", font_size=18),
-            MathTex(r"\langle \mathbf{v}, \mathbf{w} \rangle = \sum_i v_i w_i", font_size=24),
-            Text("Sum: multiply matching\ncomponents, add up", font_size=16, color=GREY_A),
-        ).arrange(DOWN, buff=0.3).next_to(disc_title, DOWN, buff=0.3)
+            Text("n components:\n(v₁, v₂, ..., vₙ)", font_size=16),
+            MathTex(r"\langle \mathbf{v}, \mathbf{w} \rangle = \sum_i v_i w_i", font_size=22),
+            Text("Sum: multiply\nmatching components", font_size=14, color=GREY_A),
+        ).arrange(DOWN, buff=0.25).next_to(disc_title, DOWN, buff=0.3)
 
         cont_items = VGroup(
-            Text("∞ components: f(x) for each x", font_size=18),
-            MathTex(r"\langle f, g \rangle = \int_{-1}^{1} f(x) g(x)\,dx", font_size=24),
-            Text("Integral: multiply matching\nvalues, integrate", font_size=16, color=GREY_A),
-        ).arrange(DOWN, buff=0.3).next_to(cont_title, DOWN, buff=0.3)
+            Text("∞ components:\nf(x) for each x", font_size=16),
+            MathTex(r"\langle f, g \rangle = \int_{-1}^{1} f(x) g(x)\,dx", font_size=22),
+            Text("Integral: multiply\nmatching values", font_size=14, color=GREY_A),
+        ).arrange(DOWN, buff=0.25).next_to(cont_title, DOWN, buff=0.3)
 
         disc_items[1].set_color(BLUE)
         cont_items[1].set_color(YELLOW)
@@ -112,9 +112,9 @@ class S02_FunctionsAsVectors(Scene):
 
         # Highlight the key insight
         insight = Text(
-            "The integral replaces the sum — it's the continuous version of a dot product.",
-            font_size=20, color=GREEN,
-        ).to_edge(DOWN, buff=0.8)
+            "The integral replaces the sum — continuous analog of dot product.",
+            font_size=18, color=GREEN,
+        ).to_edge(DOWN, buff=0.6)
         self.play(FadeIn(insight, shift=UP * 0.2))
         self.wait(2)
         self.play(*[FadeOut(m) for m in self.mobjects])
@@ -166,7 +166,7 @@ class S02_FunctionsAsVectors(Scene):
         cancel_note = Text(
             "Positive and negative areas cancel perfectly",
             font_size=20, color=GREY_A,
-        ).next_to(axes, DOWN, buff=0.2)
+        ).next_to(axes, DOWN, buff=0.35)
         self.play(FadeIn(cancel_note))
         self.wait(1)
 
@@ -194,12 +194,13 @@ class S03_GramSchmidt(Scene):
 
         # ── Explain the Gram-Schmidt idea first ──
         gs_idea = VGroup(
-            Text("The Gram-Schmidt recipe:", font_size=24, color=BLUE_A),
-            Text("1. Take the next monomial (1, x, x², x³, ...)", font_size=20),
-            Text("2. Subtract its projection onto each polynomial we've already built", font_size=20),
-            Text("3. What's left is the part that's orthogonal to all previous ones", font_size=20),
-            Text("4. Normalize so P(1) = 1", font_size=20),
-        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(DOWN * 0.5)
+            Text("The Gram-Schmidt recipe:", font_size=22, color=BLUE_A),
+            Text("1. Take the next monomial (1, x, x², x³, ...)", font_size=18),
+            Text("2. Subtract its projection onto each polynomial", font_size=18),
+            Text("   we've already built", font_size=18),
+            Text("3. What's left is orthogonal to all previous ones", font_size=18),
+            Text("4. Normalize so P(1) = 1", font_size=18),
+        ).arrange(DOWN, buff=0.15, aligned_edge=LEFT).shift(DOWN * 0.5)
         self.play(LaggedStart(*[FadeIn(item, shift=RIGHT * 0.2) for item in gs_idea], lag_ratio=0.3))
         self.wait(2.5)
 
@@ -235,7 +236,7 @@ class S03_GramSchmidt(Scene):
         self.play(Create(axes), run_time=0.8)
 
         # Running list of completed polynomials
-        poly_list_title = Text("Result", font_size=18, color=GREEN).to_edge(RIGHT, buff=0.3).shift(UP * 2.5)
+        poly_list_title = Text("Result", font_size=16, color=GREEN).to_edge(RIGHT, buff=0.5).shift(UP * 2.8)
         poly_list = VGroup(poly_list_title)
         self.play(FadeIn(poly_list_title))
 
@@ -253,8 +254,8 @@ class S03_GramSchmidt(Scene):
         self.play(FadeIn(p0_note))
         self.wait(1)
 
-        p0_tex = MathTex(r"P_0(x) = 1", color=colors[0], font_size=26)
-        p0_tex.next_to(poly_list_title, DOWN, buff=0.25).align_to(poly_list_title, LEFT)
+        p0_tex = MathTex(r"P_0(x) = 1", color=colors[0], font_size=22)
+        p0_tex.next_to(poly_list_title, DOWN, buff=0.2).align_to(poly_list_title, LEFT)
         self.play(FadeIn(p0_tex), FadeOut(p0_note))
         poly_list.add(p0_tex)
         self.wait(0.5)
@@ -275,7 +276,7 @@ class S03_GramSchmidt(Scene):
                 font_size=24, color=GREY_A,
             ),
             Text("x is odd, 1 is even → product is odd → integral is 0", font_size=16, color=GREEN),
-        ).arrange(DOWN, buff=0.15).next_to(axes, DOWN, buff=0.25)
+        ).arrange(DOWN, buff=0.15).next_to(axes, DOWN, buff=0.4)
         self.play(FadeIn(ip_calc[0]))
         self.play(Write(ip_calc[1]))
         self.wait(0.5)
@@ -287,8 +288,8 @@ class S03_GramSchmidt(Scene):
             ReplacementTransform(mono_graph, p1_graph),
             FadeOut(ip_calc),
         )
-        p1_tex = MathTex(r"P_1(x) = x", color=colors[1], font_size=26)
-        p1_tex.next_to(p0_tex, DOWN, buff=0.15).align_to(p0_tex, LEFT)
+        p1_tex = MathTex(r"P_1(x) = x", color=colors[1], font_size=22)
+        p1_tex.next_to(p0_tex, DOWN, buff=0.12).align_to(p0_tex, LEFT)
         self.play(FadeIn(p1_tex))
         poly_list.add(p1_tex)
         self.wait(0.5)
@@ -312,7 +313,7 @@ class S03_GramSchmidt(Scene):
                 r"\langle P_0, P_0 \rangle = \int_{-1}^{1} 1 \, dx = 2",
                 font_size=22,
             ),
-        ).arrange(DOWN, buff=0.12).next_to(axes, DOWN, buff=0.2)
+        ).arrange(DOWN, buff=0.12).next_to(axes, DOWN, buff=0.35)
         self.play(FadeIn(p2_steps[0]))
         self.play(Write(p2_steps[1]))
         self.wait(0.5)
@@ -346,7 +347,7 @@ class S03_GramSchmidt(Scene):
                 r"\text{Normalize } (P(1)=1): \quad P_2(x) = \frac{3x^2 - 1}{2}",
                 font_size=24, color=colors[2],
             ),
-        ).arrange(DOWN, buff=0.15).next_to(axes, DOWN, buff=0.25)
+        ).arrange(DOWN, buff=0.15).next_to(axes, DOWN, buff=0.4)
         self.play(Write(result2[0]))
         self.wait(1)
         self.play(Write(result2[1]))
@@ -356,8 +357,8 @@ class S03_GramSchmidt(Scene):
         p2_graph = axes.plot(lambda x: (3 * x**2 - 1) / 2, color=colors[2], x_range=[-1, 1])
         self.play(ReplacementTransform(mono2_graph, p2_graph), FadeOut(result2))
 
-        p2_tex = MathTex(r"P_2 = \tfrac{3x^2 - 1}{2}", color=colors[2], font_size=26)
-        p2_tex.next_to(p1_tex, DOWN, buff=0.15).align_to(p1_tex, LEFT)
+        p2_tex = MathTex(r"P_2 = \tfrac{3x^2 - 1}{2}", color=colors[2], font_size=22)
+        p2_tex.next_to(p1_tex, DOWN, buff=0.12).align_to(p1_tex, LEFT)
         self.play(FadeIn(p2_tex))
         poly_list.add(p2_tex)
         self.wait(0.5)
@@ -386,7 +387,7 @@ class S03_GramSchmidt(Scene):
                 r"\langle P_1, P_1 \rangle = \int_{-1}^{1} x^2 \, dx = \frac{2}{3}",
                 font_size=22,
             ),
-        ).arrange(DOWN, buff=0.1).next_to(axes, DOWN, buff=0.2)
+        ).arrange(DOWN, buff=0.1).next_to(axes, DOWN, buff=0.35)
         self.play(FadeIn(p3_steps[0]))
         self.play(Write(p3_steps[1]))
         self.play(FadeIn(p3_steps[2]))
@@ -410,7 +411,7 @@ class S03_GramSchmidt(Scene):
                 r"\text{Normalize: } P_3(x) = \frac{5x^3 - 3x}{2}",
                 font_size=24, color=colors[3],
             ),
-        ).arrange(DOWN, buff=0.12).next_to(axes, DOWN, buff=0.2)
+        ).arrange(DOWN, buff=0.12).next_to(axes, DOWN, buff=0.35)
         self.play(Write(p3_result[0]))
         self.wait(1)
         self.play(Write(p3_result[1]))
@@ -421,8 +422,8 @@ class S03_GramSchmidt(Scene):
         p3_graph = axes.plot(lambda x: (5 * x**3 - 3 * x) / 2, color=colors[3], x_range=[-1, 1])
         self.play(ReplacementTransform(mono3_graph, p3_graph), FadeOut(p3_result))
 
-        p3_tex = MathTex(r"P_3 = \tfrac{5x^3 - 3x}{2}", color=colors[3], font_size=26)
-        p3_tex.next_to(p2_tex, DOWN, buff=0.15).align_to(p2_tex, LEFT)
+        p3_tex = MathTex(r"P_3 = \tfrac{5x^3 - 3x}{2}", color=colors[3], font_size=22)
+        p3_tex.next_to(p2_tex, DOWN, buff=0.12).align_to(p2_tex, LEFT)
         self.play(FadeIn(p3_tex))
         poly_list.add(p3_tex)
         self.wait(0.5)
@@ -430,9 +431,9 @@ class S03_GramSchmidt(Scene):
         # Final moment
         self.play(FadeOut(step_label))
         discovery = Text(
-            "We didn't define these polynomials — Gram-Schmidt forced them into existence.",
-            font_size=20, color=BLUE_A,
-        ).next_to(axes, DOWN, buff=0.4)
+            "We didn't define these — Gram-Schmidt forced them into existence.",
+            font_size=18, color=BLUE_A,
+        ).next_to(axes, DOWN, buff=0.3)
         self.play(FadeIn(discovery, shift=UP * 0.2))
         self.wait(2.5)
         self.play(*[FadeOut(m) for m in self.mobjects])
@@ -537,8 +538,8 @@ class S04_OrthogonalityGrid(Scene):
 
         conclusion = Text(
             "A diagonal matrix — our polynomials form an orthogonal basis.",
-            font_size=22, color=BLUE_A,
-        ).to_edge(DOWN, buff=0.4)
+            font_size=20, color=BLUE_A,
+        ).to_edge(DOWN, buff=0.3)
         self.play(FadeIn(conclusion, shift=UP * 0.2))
         self.wait(2)
         self.play(*[FadeOut(m) for m in self.mobjects])
@@ -650,16 +651,16 @@ class S05_FunctionApproximation(Scene):
         self.wait(0.5)
 
         insight = Text(
-            "Each coefficient is just one integral — orthogonality makes this trivial.",
-            font_size=20, color=BLUE_A,
-        ).to_edge(DOWN, buff=0.4)
+            "Each coefficient is just one integral — orthogonality makes it trivial.",
+            font_size=18, color=BLUE_A,
+        ).to_edge(DOWN, buff=0.3)
         self.play(FadeIn(insight, shift=UP * 0.2))
         self.wait(1.5)
 
         physics = Text(
             "These polynomials are the backbone of spherical harmonics,\nmultipole expansions, and quantum mechanics.",
-            font_size=18, color=GREY_B,
-        ).to_edge(DOWN, buff=0.4)
+            font_size=16, color=GREY_B,
+        ).to_edge(DOWN, buff=0.3)
         self.play(FadeOut(insight), FadeIn(physics, shift=UP * 0.2))
         self.wait(2)
         self.play(*[FadeOut(m) for m in self.mobjects])
@@ -675,14 +676,14 @@ class S06_ClosingCard(Scene):
         heading = Text("Legendre Polynomials", font_size=40, color=BLUE).to_edge(UP, buff=0.8)
 
         formulas = VGroup(
-            MathTex(r"\langle f, g \rangle = \int_{-1}^{1} f(x)\,g(x)\,dx", font_size=30),
+            MathTex(r"\langle f, g \rangle = \int_{-1}^{1} f(x)\,g(x)\,dx", font_size=28),
             MathTex(
                 r"P_0 = 1, \quad P_1 = x, \quad P_2 = \tfrac{3x^2-1}{2}, \quad P_3 = \tfrac{5x^3-3x}{2}",
-                font_size=28,
+                font_size=24,
             ),
-            MathTex(r"\langle P_m, P_n \rangle = \frac{2}{2n+1}\,\delta_{mn}", font_size=30),
-            MathTex(r"f(x) = \sum_{n=0}^{\infty} c_n P_n(x)", font_size=30),
-        ).arrange(DOWN, buff=0.5).next_to(heading, DOWN, buff=0.6)
+            MathTex(r"\langle P_m, P_n \rangle = \frac{2}{2n+1}\,\delta_{mn}", font_size=28),
+            MathTex(r"f(x) = \sum_{n=0}^{\infty} c_n P_n(x)", font_size=28),
+        ).arrange(DOWN, buff=0.4).next_to(heading, DOWN, buff=0.5)
 
         self.play(FadeIn(heading, shift=DOWN * 0.3))
         self.play(LaggedStart(*[FadeIn(f, shift=UP * 0.2) for f in formulas], lag_ratio=0.4))

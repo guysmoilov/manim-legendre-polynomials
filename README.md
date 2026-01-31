@@ -42,7 +42,9 @@ Render the full video at 720p/30fps:
 bash render.sh
 ```
 
-Output: `legendre_polynomials.mp4`
+Output: 
+
+![Legendre Polynomials Video](legendre_polynomials.mp4)
 
 Render individual scenes at lower quality for preview:
 ```bash
