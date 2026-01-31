@@ -1,0 +1,33 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Manim output
+media/
+
+# uv
+.python-version
+
+# IDE / editor / agent configs
+.agent/
+.agents/
+.claude/
+.codex/
+.continue/
+.cursor/
+.gemini/
+.opencode/
+.windsurf/
+
+# Skills (claude code plugins)
+skills/
+
+# OS
+.DS_Store
