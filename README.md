@@ -37,14 +37,27 @@ Install dependencies:
 uv sync
 ```
 
-Render the full video at 720p/30fps:
+### Build the video
+
+Render the full video at 720p/30fps using Make (recommended):
+```bash
+make
+```
+
+The Makefile provides intelligent caching — it only re-renders scenes when `legendre.py` changes:
+```bash
+make status    # Check which scenes need rendering
+make -j4       # Build with 4 parallel jobs
+make scene3    # Render just Scene 3 (Gram-Schmidt)
+make clean     # Remove all generated videos
+```
+
+Alternatively, use the shell script to rebuild everything:
 ```bash
 bash render.sh
 ```
 
-Output: 
-
-![Legendre Polynomials Video](legendre_polynomials.mp4)
+### Preview individual scenes
 
 Render individual scenes at lower quality for preview:
 ```bash
@@ -55,7 +68,8 @@ uv run manim render -ql legendre.py S03_GramSchmidt
 
 - `legendre.py` — All 6 Manim scenes
 - `scenes.md` — Detailed scene-by-scene plan and narration notes
-- `render.sh` — Build script (renders all scenes and concatenates)
+- `Makefile` — Smart build system with caching and parallel rendering
+- `render.sh` — Shell script alternative (rebuilds everything)
 
 ## Credits
 
