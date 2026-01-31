@@ -225,18 +225,18 @@ class S03_GramSchmidt(Scene):
         ).to_corner(UR)
         self.play(FadeIn(ip_reminder))
 
-        # Axes
+        # Axes - confined to left half of viewport
         axes = Axes(
             x_range=[-1.2, 1.2, 0.5],
             y_range=[-1.5, 1.5, 0.5],
-            x_length=6.5,
-            y_length=3.8,
-            axis_config={"include_numbers": True, "font_size": 18},
-        ).shift(DOWN * 0.5 + LEFT * 0.5)
+            x_length=5.0,
+            y_length=4.0,
+            axis_config={"include_numbers": True, "font_size": 16},
+        ).shift(LEFT * 2.5 + DOWN * 0.2)
         self.play(Create(axes), run_time=0.8)
 
-        # Running list of completed polynomials
-        poly_list_title = Text("Result", font_size=16, color=GREEN).to_edge(RIGHT, buff=0.5).shift(UP * 2.8)
+        # Running list of completed polynomials - more space from right edge
+        poly_list_title = Text("Result", font_size=16, color=GREEN).to_edge(RIGHT, buff=0.8).shift(UP * 2.8)
         poly_list = VGroup(poly_list_title)
         self.play(FadeIn(poly_list_title))
 
@@ -249,8 +249,8 @@ class S03_GramSchmidt(Scene):
         p0_graph = axes.plot(lambda x: 1, color=colors[0], x_range=[-1, 1])
         self.play(Create(p0_graph))
 
-        p0_note = Text("No previous polynomials to subtract. Just normalize.", font_size=18, color=GREY_A)
-        p0_note.next_to(axes, DOWN, buff=0.3)
+        p0_note = Text("No previous polynomials to subtract.\nJust normalize.", font_size=16, color=GREY_A)
+        p0_note.to_corner(DR, buff=0.5)
         self.play(FadeIn(p0_note))
         self.wait(1)
 
@@ -268,15 +268,15 @@ class S03_GramSchmidt(Scene):
         mono_graph = axes.plot(lambda x: x, color=RED, x_range=[-1, 1], stroke_width=3)
         self.play(Create(mono_graph))
 
-        # Explain
+        # Explain - positioned in bottom right
         ip_calc = VGroup(
-            Text("Subtract projection onto P₀:", font_size=18, color=GREY_A),
+            Text("Subtract projection onto P₀:", font_size=16, color=GREY_A),
             MathTex(
                 r"\langle x, P_0 \rangle = \int_{-1}^{1} x \cdot 1 \, dx = 0",
-                font_size=24, color=GREY_A,
+                font_size=20, color=GREY_A,
             ),
-            Text("x is odd, 1 is even → product is odd → integral is 0", font_size=16, color=GREEN),
-        ).arrange(DOWN, buff=0.15).next_to(axes, DOWN, buff=0.4)
+            Text("x is odd, 1 is even →\nproduct is odd → integral is 0", font_size=14, color=GREEN),
+        ).arrange(DOWN, buff=0.12, aligned_edge=LEFT).to_corner(DR, buff=0.5)
         self.play(FadeIn(ip_calc[0]))
         self.play(Write(ip_calc[1]))
         self.wait(0.5)
@@ -302,52 +302,56 @@ class S03_GramSchmidt(Scene):
         mono2_graph = axes.plot(lambda x: x**2, color=RED, x_range=[-1, 1], stroke_width=3)
         self.play(Create(mono2_graph))
 
-        # Step-by-step inner products
+        # Step-by-step inner products - positioned in bottom right
         p2_steps = VGroup(
-            Text("Subtract projections onto P₀ and P₁:", font_size=18, color=GREY_A),
+            Text("Subtract projections onto P₀ and P₁:", font_size=16, color=GREY_A),
             MathTex(
                 r"\langle x^2, P_0 \rangle = \int_{-1}^{1} x^2 \, dx = \frac{2}{3}",
-                font_size=22,
+                font_size=18,
             ),
             MathTex(
                 r"\langle P_0, P_0 \rangle = \int_{-1}^{1} 1 \, dx = 2",
-                font_size=22,
+                font_size=18,
             ),
-        ).arrange(DOWN, buff=0.12).next_to(axes, DOWN, buff=0.35)
+        ).arrange(DOWN, buff=0.1, aligned_edge=LEFT).to_corner(DR, buff=0.5)
         self.play(FadeIn(p2_steps[0]))
         self.play(Write(p2_steps[1]))
         self.wait(0.5)
         self.play(Write(p2_steps[2]))
         self.wait(0.5)
 
-        # The subtraction
+        # The subtraction - positioned in bottom right
         p2_sub = VGroup(
             MathTex(
                 r"\text{proj}_{P_0}(x^2) = \frac{2/3}{2} \cdot 1 = \frac{1}{3}",
-                font_size=22, color=YELLOW,
+                font_size=18, color=YELLOW,
             ),
             MathTex(
                 r"\text{proj}_{P_1}(x^2) = 0 \quad \text{(odd × even = 0)}",
-                font_size=22, color=YELLOW,
+                font_size=18, color=YELLOW,
             ),
-        ).arrange(DOWN, buff=0.1).next_to(p2_steps, DOWN, buff=0.15)
+        ).arrange(DOWN, buff=0.08, aligned_edge=LEFT).to_corner(DR, buff=0.5)
         self.play(FadeOut(p2_steps[0]), Write(p2_sub[0]))
         self.wait(0.5)
         self.play(Write(p2_sub[1]))
         self.wait(0.5)
 
-        # Result before normalization
+        # Result before normalization - positioned in bottom right
         self.play(FadeOut(p2_steps[1:]), FadeOut(p2_sub))
         result2 = VGroup(
             MathTex(
-                r"x^2 - \frac{1}{3} \quad\text{(subtract the }P_0\text{ component)}",
-                font_size=22, color=WHITE,
+                r"x^2 - \frac{1}{3} \quad\text{(subtract }P_0\text{)}",
+                font_size=18, color=WHITE,
             ),
             MathTex(
-                r"\text{Normalize } (P(1)=1): \quad P_2(x) = \frac{3x^2 - 1}{2}",
-                font_size=24, color=colors[2],
+                r"\text{Normalize } (P(1)=1):",
+                font_size=16, color=GREY_A,
             ),
-        ).arrange(DOWN, buff=0.15).next_to(axes, DOWN, buff=0.4)
+            MathTex(
+                r"P_2(x) = \frac{3x^2 - 1}{2}",
+                font_size=20, color=colors[2],
+            ),
+        ).arrange(DOWN, buff=0.1, aligned_edge=LEFT).to_corner(DR, buff=0.5)
         self.play(Write(result2[0]))
         self.wait(1)
         self.play(Write(result2[1]))
@@ -371,23 +375,23 @@ class S03_GramSchmidt(Scene):
         mono3_graph = axes.plot(lambda x: x**3, color=RED, x_range=[-1, 1], stroke_width=3)
         self.play(Create(mono3_graph))
 
-        # Inner products for P3
+        # Inner products for P3 - positioned in bottom right
         p3_steps = VGroup(
-            Text("Subtract projections onto P₀, P₁, P₂:", font_size=18, color=GREY_A),
+            Text("Subtract projections onto P₀, P₁, P₂:", font_size=15, color=GREY_A),
             MathTex(
-                r"\langle x^3, P_0 \rangle = 0, \quad \langle x^3, P_2 \rangle = 0",
-                font_size=22,
+                r"\langle x^3, P_0 \rangle = 0, \ \langle x^3, P_2 \rangle = 0",
+                font_size=17,
             ),
-            Text("(x³ is odd → pairing with even functions gives 0)", font_size=16, color=GREEN),
+            Text("(x³ is odd → even functions = 0)", font_size=13, color=GREEN),
             MathTex(
-                r"\langle x^3, P_1 \rangle = \int_{-1}^{1} x^3 \cdot x \, dx = \int_{-1}^{1} x^4 \, dx = \frac{2}{5}",
-                font_size=22,
+                r"\langle x^3, P_1 \rangle = \int_{-1}^{1} x^4 \, dx = \frac{2}{5}",
+                font_size=17,
             ),
             MathTex(
                 r"\langle P_1, P_1 \rangle = \int_{-1}^{1} x^2 \, dx = \frac{2}{3}",
-                font_size=22,
+                font_size=17,
             ),
-        ).arrange(DOWN, buff=0.1).next_to(axes, DOWN, buff=0.35)
+        ).arrange(DOWN, buff=0.08, aligned_edge=LEFT).to_corner(DR, buff=0.5)
         self.play(FadeIn(p3_steps[0]))
         self.play(Write(p3_steps[1]))
         self.play(FadeIn(p3_steps[2]))
@@ -396,22 +400,22 @@ class S03_GramSchmidt(Scene):
         self.play(Write(p3_steps[4]))
         self.wait(1)
 
-        # The subtraction
+        # The subtraction - positioned in bottom right
         self.play(FadeOut(p3_steps))
         p3_result = VGroup(
             MathTex(
                 r"\text{proj}_{P_1}(x^3) = \frac{2/5}{2/3} \cdot x = \frac{3}{5}x",
-                font_size=22, color=YELLOW,
+                font_size=18, color=YELLOW,
             ),
             MathTex(
-                r"x^3 - \frac{3}{5}x \quad\text{(subtract the }P_1\text{ component)}",
-                font_size=22, color=WHITE,
+                r"x^3 - \frac{3}{5}x \quad\text{(subtract }P_1\text{)}",
+                font_size=18, color=WHITE,
             ),
             MathTex(
                 r"\text{Normalize: } P_3(x) = \frac{5x^3 - 3x}{2}",
-                font_size=24, color=colors[3],
+                font_size=19, color=colors[3],
             ),
-        ).arrange(DOWN, buff=0.12).next_to(axes, DOWN, buff=0.35)
+        ).arrange(DOWN, buff=0.1, aligned_edge=LEFT).to_corner(DR, buff=0.5)
         self.play(Write(p3_result[0]))
         self.wait(1)
         self.play(Write(p3_result[1]))
@@ -428,12 +432,12 @@ class S03_GramSchmidt(Scene):
         poly_list.add(p3_tex)
         self.wait(0.5)
 
-        # Final moment
+        # Final moment - positioned in bottom right
         self.play(FadeOut(step_label))
         discovery = Text(
-            "We didn't define these — Gram-Schmidt forced them into existence.",
-            font_size=18, color=BLUE_A,
-        ).next_to(axes, DOWN, buff=0.3)
+            "We didn't define these —\nGram-Schmidt forced them into existence.",
+            font_size=16, color=BLUE_A,
+        ).to_corner(DR, buff=0.5)
         self.play(FadeIn(discovery, shift=UP * 0.2))
         self.wait(2.5)
         self.play(*[FadeOut(m) for m in self.mobjects])
