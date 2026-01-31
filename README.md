@@ -4,6 +4,10 @@ A 3Blue1Brown-style educational video explaining Legendre polynomials through th
 
 Made using Claude Code + https://github.com/adithya-s-k/manim_skill
 
+## Video
+
+[![Legendre Polynomials Video](https://img.youtube.com/vi/YzljtFxUzWE/0.jpg)](https://youtu.be/YzljtFxUzWE)
+
 ## About
 
 This video demonstrates:
